@@ -1,8 +1,11 @@
 {
 	"name": "frontend",
-	"private": true,
+	"private": false,
 	"version": "0.0.1",
 	"type": "module",
+	"packageManager": "pnpm@8.6.0",
+	"license": "MIT",
+	"author": "Guilherme Bohsntedt <guibohnstedt@gmail.com>",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
