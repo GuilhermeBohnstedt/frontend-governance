@@ -1,13 +1,14 @@
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from fastapi import FastAPI # type: ignore
+from fastapi.middleware.cors import CORSMiddleware  # type: ignore
 from pathlib import Path
+from pydantic import BaseModel
 import json
-from typing import List
+from typing import List, Any, Dict
 
-app: FastAPI = FastAPI()
+app = FastAPI() # type: ignore
 
 # Permitir requisições do frontend local
-app.add_middleware(
+app.add_middleware( # type: ignore
     CORSMiddleware,
     allow_origins=["*"],
     allow_credentials=True,
@@ -15,11 +16,14 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.post("/repo/packages")
-def get_packages_json(repo_paths: List[str]):
-    """Recebe uma lista de caminhos de repositórios, lê o package.json de cada um e retorna seus conteúdos."""
-    results = []
-    for repo_path in repo_paths:
+class RepoPaths(BaseModel):
+    paths: List[str]
+
+@app.post("/repo/packages") # type: ignore
+async def get_packages_json(repo_paths: RepoPaths) -> List[Dict[str, Any]]:
+    """Receives a list of repository paths, reads the package.json from each one, and returns their contents."""
+    results: List[Dict[str, Any]] = []
+    for repo_path in repo_paths.paths:
         package_file = Path(repo_path) / "package.json"
         if not package_file.exists():
             results.append({"repo_path": repo_path, "error": "package.json not found"})

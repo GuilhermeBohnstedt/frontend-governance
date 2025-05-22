@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { PackageResult } from "$lib/models";
+	import type { PackageResult } from '$lib/models';
 
 	let paths = $state<string>('');
 	let results = $state<PackageResult[]>([]);
@@ -18,7 +18,7 @@
 			const res = await fetch('http://localhost:8000/repo/packages', {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(repo_paths)
+				body: JSON.stringify({ paths: repo_paths })
 			});
 			if (!res.ok) throw new Error('Error fetching data');
 			results = await res.json();
