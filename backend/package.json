@@ -1,0 +1,9 @@
+{
+  "name": "backend",
+  "private": false,
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "source venv/bin/activate && pip install -r requirements.txt && uvicorn main:app --reload",
+    "test:unit": "source venv/bin/activate && pip install -r requirements.txt && pytest -v tests.py"
+  }
+}
