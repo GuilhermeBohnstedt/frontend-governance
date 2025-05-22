@@ -3,7 +3,7 @@
 	"private": false,
 	"version": "0.0.1",
 	"type": "module",
-	"packageManager": "pnpm@8.6.0",
+	"packageManager": "pnpm@10.11.0",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -29,6 +29,7 @@
 		"@tailwindcss/vite": "^4.0.0",
 		"@testing-library/jest-dom": "^6.6.3",
 		"@testing-library/svelte": "^5.2.4",
+		"@types/d3": "^7.4.3",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
@@ -49,5 +50,8 @@
 		"onlyBuiltDependencies": [
 			"esbuild"
 		]
+	},
+	"dependencies": {
+		"d3": "^7.9.0"
 	}
 }
