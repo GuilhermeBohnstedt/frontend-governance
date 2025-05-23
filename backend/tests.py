@@ -5,9 +5,8 @@ from main import get_packages_json, RepoPaths
 import pytest
 
 # backend/test_main.py
-
-@pytest.mark.asyncio
-async def test_get_packages_json_valid_package():
+@pytest.mark.asyncio  # type: ignore
+async def test_get_packages_json_valid_package() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         repo_path = Path(tmpdir)
         package_json = {"name": "testpkg", "version": "1.0.0"}
@@ -18,8 +17,8 @@ async def test_get_packages_json_valid_package():
         assert result[0]["repo_path"] == str(repo_path)
         assert result[0]["package"] == package_json
 
-@pytest.mark.asyncio
-async def test_get_packages_json_missing_package():
+@pytest.mark.asyncio  # type: ignore
+async def test_get_packages_json_missing_package() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         repo_path = Path(tmpdir)
         repopaths = RepoPaths(paths=[str(repo_path)])
@@ -29,8 +28,8 @@ async def test_get_packages_json_missing_package():
         assert "error" in result[0]
         assert result[0]["error"] == "package.json not found"
 
-@pytest.mark.asyncio
-async def test_get_packages_json_invalid_json():
+@pytest.mark.asyncio  # type: ignore
+async def test_get_packages_json_invalid_json() -> None:
     with tempfile.TemporaryDirectory() as tmpdir:
         repo_path = Path(tmpdir)
         (repo_path / "package.json").write_text("{ invalid json }", encoding="utf-8")
@@ -41,8 +40,8 @@ async def test_get_packages_json_invalid_json():
         assert "error" in result[0]
         assert "Expecting property name" in result[0]["error"]
 
-@pytest.mark.asyncio
-async def test_get_packages_json_multiple_repos():
+@pytest.mark.asyncio  # type: ignore
+async def test_get_packages_json_multiple_repos() -> None:
     with tempfile.TemporaryDirectory() as tmpdir1, tempfile.TemporaryDirectory() as tmpdir2:
         repo1 = Path(tmpdir1)
         repo2 = Path(tmpdir2)
