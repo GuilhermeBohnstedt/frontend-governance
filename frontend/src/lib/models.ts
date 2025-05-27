@@ -18,5 +18,5 @@ export type PackageResult = {
 
 export interface GraphNode {
 	id: string;
-	value: string;
+	value?: string;
 }
