@@ -15,3 +15,8 @@ export type PackageResult = {
 	package?: PackageJson;
 	error?: string;
 };
+
+export interface GraphNode {
+	id: string;
+	value: string;
+}
