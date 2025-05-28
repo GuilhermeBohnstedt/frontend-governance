@@ -1,18 +1,10 @@
 <script lang="ts">
-	import Graph from '$lib/components/Graph.svelte';
-	import { nodes } from '$lib/utils/d3/data';
-
-	const packageJson = {
-		name: 'frontend',
-		private: false,
-		version: '0.0.1',
-		type: 'module',
-		packageManager: 'pnpm@10.11.0'
-	};
+	import Dendrogram from '$lib/components/Graph.svelte';
+	import { data } from '$lib/utils/d3/data';
 
 	let modal: HTMLDialogElement;
-	let windowHeight: number;
-	let windowWidth: number;
+	let windowHeight: number = $state(0);
+	let windowWidth: number = $state(0);
 </script>
 
 <button class="btn btn-primary fixed right-5 top-3 z-40" onclick={() => modal?.showModal()}>
@@ -21,7 +13,11 @@
 
 <svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
 
-<Graph data={nodes} height={windowHeight} width={windowWidth} />
+{#if windowHeight === 0 || windowWidth === 0}
+	<p>Loading...</p>
+{:else}
+	<Dendrogram {data} height={windowHeight} width={windowWidth} />
+{/if}
 
 <dialog bind:this={modal} id="form-modal" class="modal z-50">
 	<div class="modal-box">

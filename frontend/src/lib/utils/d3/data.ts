@@ -1,117 +1,43 @@
-import type { GraphNode } from "$lib/models";
+import type { Graph } from '$lib/models';
 
-
-export const nodes: GraphNode[] = [
-  {
-    id: 'corf-core',
-    value: ''
-  },
-  {
-    id: 'corf-core.analytics',
-    value: ''
-  },
-  {
-    id: 'corf-core.analytics.cluster',
-    value: ''
-  },
-  {
-    id: 'corf-core.analytics.cluster.AgglomerativeCluster',
-    value: '3938'
-  },
-  {
-    id: 'corf-core.analytics.cluster.CommunityStructure',
-    value: '3812'
-  },
-  {
-    id: 'corf-core.analytics.cluster.HierarchicalCluster',
-    value: '6714'
-  },
-  {
-    id: 'corf-core.analytics.cluster.MergeEdge',
-    value: '743'
-  },
-  {
-    id: 'corf-core.analytics.graph',
-    value: ''
-  },
-  {
-    id: 'corf-core.analytics.graph.BetweennessCentrality',
-    value: '3534'
-  },
-  {
-    id: 'corf-core.analytics.graph.LinkDistance',
-    value: '5731'
-  },
-  {
-    id: 'corf-core.analytics.graph.MaxFlowMinCut',
-    value: '7840'
-  },
-  {
-    id: 'corf-core.analytics.graph.ShortestPaths',
-    value: '5914'
-  },
-  {
-    id: 'corf-core.analytics.graph.SpanningTree',
-    value: '3416'
-  },
-  {
-    id: 'corf-core.analytics.optimization',
-    value: ''
-  },
-  {
-    id: 'corf-core.analytics.optimization.AspectRatioBanker',
-    value: '7074'
-  },
-  {
-    id: 'corf-core.animate',
-    value: ''
-  },
-  {
-    id: 'corf-core.animate.Easing',
-    value: '17010'
-  },
-  {
-    id: 'corf-core.animate.FunctionSequence',
-    value: '5842'
-  },
-  {
-    id: 'corf-core.animate.interpolate',
-    value: ''
-  },
-  {
-    id: 'corf-core.animate.interpolate.ArrayInterpolator',
-    value: '0'
-  },
-  {
-    id: 'corf-core.animate.interpolate.ColorInterpolator',
-    value: '0'
-  },
-  {
-    id: 'corf-core.animate.interpolate.DateInterpolator',
-    value: '0'
-  },
-  {
-    id: 'corf-core.animate.interpolate.Interpolator',
-    value: '8746'
-  },
-  {
-    id: 'corf-core.animate.interpolate.MatrixInterpolator',
-    value: '2202'
-  },
-  {
-    id: 'corf-core.animate.interpolate.NumberInterpolator',
-    value: '1382'
-  },
-  {
-    id: 'corf-core.animate.interpolate.ObjectInterpolator',
-    value: '1629'
-  },
-  {
-    id: 'corf-core.animate.interpolate.PointInterpolator',
-    value: '1675'
-  },
-  {
-    id: 'corf-core.animate.interpolate.RectangleInterpolator',
-    value: '2042'
-  },
-];
+export const data: Graph = {
+  id: 'boss',
+  type: 'node',
+  name: 'boss',
+  value: 0,
+  children: [
+    {
+      id: 'team-dataviz',
+      type: 'node',
+      name: 'Team Dataviz',
+      value: 0,
+      children: [
+        { id: 'mark', type: 'leaf', name: 'Mark', value: 90 },
+        { id: 'robert', type: 'leaf', name: 'Robert', value: 12 },
+        { id: 'emily', type: 'leaf', name: 'Emily', value: 34 },
+        { id: 'marion', type: 'leaf', name: 'Marion', value: 53 }
+      ]
+    },
+    {
+      id: 'team-devops',
+      type: 'node',
+      name: 'Team DevOps',
+      value: 0,
+      children: [
+        { id: 'nicolas', type: 'leaf', name: 'Nicolas', value: 98 },
+        { id: 'malki', type: 'leaf', name: 'Malki', value: 22 },
+        { id: 'dje', type: 'leaf', name: 'Djé', value: 12 }
+      ]
+    },
+    {
+      id: 'team-sales',
+      type: 'node',
+      name: 'Team Sales',
+      value: 0,
+      children: [
+        { id: 'melanie', type: 'leaf', name: 'Mélanie', value: 45 },
+        { id: 'einstein', type: 'leaf', name: 'Einstein', value: 76 }
+      ]
+    }
+  ]
+};

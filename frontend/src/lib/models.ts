@@ -16,7 +16,19 @@ export type PackageResult = {
 	error?: string;
 };
 
-export interface GraphNode {
+export type GraphNode = {
 	id: string;
-	value?: string;
-}
+  type: 'node';
+  value: number;
+  name: string;
+  children: Graph[];
+};
+
+export type GraphLeaf = {
+	id: string;
+  type: 'leaf';
+  name: string;
+  value: number;
+};
+
+export type Graph = GraphNode | GraphLeaf;
