@@ -17,9 +17,7 @@
 
 	let dendrogramGenerator = $derived(d3.cluster<Graph>().size([boundsHeight, boundsWidth]));
 
-	let hierarchy: d3.HierarchyNode<Graph> = $state(
-		d3.hierarchy(data).sum((d: Graph) => d.value)
-	);
+	let hierarchy: d3.HierarchyNode<Graph> = $state(d3.hierarchy(data).sum((d: Graph) => d.value));
 	let dendrogram: d3.HierarchyPointNode<Graph> = $derived(dendrogramGenerator(hierarchy));
 
 	const horizontalLinkGenerator = d3
@@ -39,17 +37,16 @@
 				{#each dendrogram.descendants() as node (node.data.id)}
 					<g>
 						<circle cx={node.y} cy={node.x} r={5} stroke="transparent" fill="#69b3a2" />
-						{#if !node.children}
-							<text
-								x={node.y + 15}
-								y={node.x}
-								font-size="12"
-								text-anchor="left"
-								alignment-baseline="middle"
-							>
-								{node.data.name}
-							</text>
-						{/if}
+						<text
+							x={node.y + 15}
+							y={node.x}
+							font-size="12"
+							text-anchor="top"
+							alignment-baseline="middle"
+							fill="white"
+						>
+							{node.data.name}
+						</text>
 					</g>
 				{/each}
 				{#each dendrogram.descendants() as node (node.data.id)}

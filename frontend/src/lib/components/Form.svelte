@@ -2,6 +2,12 @@
 	import type { PackageResult } from '$lib/models';
 	import { getRepoPackages } from '$lib/api';
 
+	interface Props {
+		onAccept: (results: PackageResult[]) => void;
+	}
+
+	const { onAccept }: Props = $props();
+
 	let paths = $state<string[]>(['']);
 	let results = $state<PackageResult[]>([]);
 	let loading = $state<boolean>(false);
@@ -23,62 +29,63 @@
 	}
 </script>
 
-<h1 class="mb-6 text-2xl font-bold">Consultar package.json de múltiplos repositórios</h1>
+<h2 class="mb-6 text-2xl font-bold">Query package.json from multiple repositories</h2>
 
 <form onsubmit={submit} class="space-y-4">
 	{#each paths as path, i (i)}
 		<div class="flex items-center gap-2">
-			<input
-				type="text"
-				bind:value={paths[i]}
-				placeholder="/caminho/para/repo"
-				class="w-96 rounded border px-3 py-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-400"
-			/>
+			<label class="input">
+				Path
+				<input type="text" class="grow" placeholder="src/app/" bind:value={paths[i]} />
+			</label>
 			{#if paths.length > 1}
-				<button
-					type="button"
-					onclick={() => paths.splice(i, 1)}
-					class="rounded bg-red-500 px-3 py-1 text-white transition hover:bg-red-600"
-				>
-					Remover
+				<button type="button" onclick={() => paths.splice(i, 1)} class="btn btn-error">
+					Remove
 				</button>
 			{/if}
 		</div>
 	{/each}
 	<div class="flex gap-2">
-		<button
-			type="button"
-			onclick={() => (paths = [...paths, ''])}
-			class="rounded bg-blue-500 px-3 py-1 text-white transition hover:bg-blue-600"
-		>
-			Adicionar campo
+		<button type="button" onclick={() => (paths = [...paths, ''])} class="btn btn-primary">
+			Add Path
 		</button>
-		<button
-			type="submit"
-			disabled={loading}
-			class="rounded bg-green-600 px-4 py-2 text-white transition hover:bg-green-700 disabled:opacity-50"
-		>
-			Consultar
-		</button>
+		<button type="submit" disabled={loading} class="btn btn-success"> Find </button>
+		<button type="button" disabled={loading} class="btn btn-neutral" onclick={() => onAccept(results)}> Accept </button>
+
 	</div>
 </form>
 
 {#if loading}
-	<p class="mt-4 font-semibold text-blue-600">Consultando...</p>
+	<span class="loading loading-ring loading-xl"></span>
 {/if}
 
 {#if error}
-	<p class="mt-4 font-semibold text-red-600">{error}</p>
+	<div role="alert" class="alert alert-error">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			class="h-6 w-6 shrink-0 stroke-current"
+			fill="none"
+			viewBox="0 0 24 24"
+		>
+			<path
+				stroke-linecap="round"
+				stroke-linejoin="round"
+				stroke-width="2"
+				d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
+			/>
+		</svg>
+		<span>{error}</span>
+	</div>
 {/if}
 
 {#if results.length}
 	<h2 class="mb-4 mt-8 text-xl font-semibold">Resultados:</h2>
 	<ul class="space-y-6">
 		{#each results as result}
-			<li class="rounded border bg-gray-50 p-4">
-				<strong class="block text-gray-800">{result.repo_path}</strong>
+			<li class="rounded border p-4 border-zinc-600">
+				<strong class="block">{result.repo_path}</strong>
 				{#if result.package}
-					<pre class="mt-2 overflow-x-auto rounded bg-gray-100 p-2 text-sm">{JSON.stringify(
+					<pre class="mt-2 overflow-x-auto rounded p-2 text-sm">{JSON.stringify(
 							result.package,
 							null,
 							2

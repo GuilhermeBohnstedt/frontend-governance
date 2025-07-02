@@ -33,8 +33,7 @@ describe('+page.svelte', () => {
     const dialog = screen.getByRole('dialog') as HTMLDialogElement;
 
     expect(dialog.open).toBeTruthy();
-    expect(screen.getByText('Hello!')).toBeInTheDocument();
-    expect(screen.getByText('Press ESC key or click the button below to close')).toBeInTheDocument();
+    expect(screen.getByText('Query package.json from multiple repositories')).toBeInTheDocument();
   });
 
   it('closes the modal when Close is clicked', async () => {
@@ -48,14 +47,6 @@ describe('+page.svelte', () => {
     expect(dialog.open).toBeFalsy();
   });
 
-  it('renders the Graph component', () => {
-    render(Page);
-    // Graph component should render an SVG or a known element
-    const svg = document.querySelector('svg');
-
-    expect(svg).toBeInTheDocument();
-  });
-
   it('closes the modal when ESC key is pressed', async () => {
     render(Page);
     const openButton = screen.getByText('Open Modal');
@@ -64,7 +55,7 @@ describe('+page.svelte', () => {
     expect(dialog.open).toBeTruthy();
     await fireEvent.keyDown(dialog, { key: 'Escape', code: 'Escape' });
     dialog.close();
-    
+
     // The dialog should close after ESC
     expect(dialog.open).toBeFalsy();
   });

@@ -1,9 +1,14 @@
+import type { PackageResult } from '$lib/models';
+
 export interface AwaitOptions {
 	onError?: (error: Error) => void;
 	onFinally?: () => void;
 }
 
-export const getRepoPackages = async (paths: string[], options: AwaitOptions = {}) => {
+export const getRepoPackages = async (
+  paths: string[],
+  options: AwaitOptions = {}
+): Promise<PackageResult[]> => {
   try {
     const repo_paths = paths.map((p) => p.trim()).filter((p) => p.length > 0);
 
@@ -18,6 +23,7 @@ export const getRepoPackages = async (paths: string[], options: AwaitOptions = {
     return res.json();
   } catch (e: unknown) {
     options.onError?.(e as Error);
+    return [];
   } finally {
     options.onFinally?.();
   }
