@@ -50,8 +50,14 @@
 			Add Path
 		</button>
 		<button type="submit" disabled={loading} class="btn btn-success"> Find </button>
-		<button type="button" disabled={loading} class="btn btn-neutral" onclick={() => onAccept(results)}> Accept </button>
-
+		<button
+			type="button"
+			disabled={loading}
+			class="btn btn-neutral"
+			onclick={() => onAccept(results)}
+		>
+			Accept
+		</button>
 	</div>
 </form>
 
@@ -82,18 +88,23 @@
 	<h2 class="mb-4 mt-8 text-xl font-semibold">Resultados:</h2>
 	<ul class="space-y-6">
 		{#each results as result}
-			<li class="rounded border p-4 border-zinc-600">
-				<strong class="block">{result.repo_path}</strong>
-				{#if result.package}
-					<pre class="mt-2 overflow-x-auto rounded p-2 text-sm">{JSON.stringify(
-							result.package,
-							null,
-							2
-						)}</pre>
-				{:else}
-					<span class="mt-2 block text-red-500">{result.error}</span>
-				{/if}
-			</li>
+			<div class="collapse-arrow bg-base-100 border-base-300 collapse border">
+				<input type="radio" name="my-accordion-2" />
+				<div class="collapse-title font-semibold">
+					<strong class="block">{result.repo_path}</strong>
+				</div>
+				<div class="collapse-content text-sm">
+					{#if result.package}
+						<div class="mockup-code w-full">
+							{#each JSON.stringify(result.package, null, 2).split('\n') as line, idx}
+								<pre data-prefix={idx + 1}><code>{line}</code></pre>
+							{/each}
+						</div>
+					{:else}
+						<span class="mt-2 block text-red-500">{result.error}</span>
+					{/if}
+				</div>
+			</div>
 		{/each}
 	</ul>
 {/if}
