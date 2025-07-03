@@ -19,21 +19,19 @@
 <svelte:window bind:innerHeight={windowHeight} bind:innerWidth={windowWidth} />
 
 {#if windowHeight === 0 || windowWidth === 0}
-	<p>Loading...</p>
+	<span class="loading loading-ring loading-xl"></span>
 {:else}
 	<Table data={dataLoaded} />
 {/if}
 
-<dialog bind:this={modal} id="form-modal" class="modal z-50">
-	<div class="modal-box">
+<dialog bind:this={modal} id="form-modal" class="modal z-50 ">
+	<div class="modal-box w-11/12 max-w-5xl">
 		<Form
 			onAccept={(results) => {
 				dataLoaded = results;
+				modal?.close()
 			}}
 		/>
-		<div class="modal-action">
-			<button class="btn" onclick={() => modal?.close()}>Close</button>
-		</div>
 	</div>
 </dialog>
 

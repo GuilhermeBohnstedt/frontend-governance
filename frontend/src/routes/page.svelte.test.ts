@@ -1,6 +1,7 @@
 import { render, fireEvent, screen } from '@testing-library/svelte';
 import Page from './+page.svelte';
 import { beforeAll, describe, expect, it } from 'vitest';
+import '@testing-library/jest-dom/vitest';
 
 beforeAll(() => {
   window.HTMLDialogElement.prototype.showModal = function () {
@@ -34,17 +35,6 @@ describe('+page.svelte', () => {
 
     expect(dialog.open).toBeTruthy();
     expect(screen.getByText('Query package.json from multiple repositories')).toBeInTheDocument();
-  });
-
-  it('closes the modal when Close is clicked', async () => {
-    render(Page);
-    const openButton = screen.getByText('Open Modal');
-    await fireEvent.click(openButton);
-    const closeButton = screen.getByText('Close');
-    await fireEvent.click(closeButton);
-    const dialog = screen.getByRole('dialog', { hidden: true }) as HTMLDialogElement;
-
-    expect(dialog.open).toBeFalsy();
   });
 
   it('closes the modal when ESC key is pressed', async () => {

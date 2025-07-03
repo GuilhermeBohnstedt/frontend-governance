@@ -34,7 +34,7 @@
 <form onsubmit={submit} class="space-y-4">
 	{#each paths as path, i (i)}
 		<div class="flex items-center gap-2">
-			<label class="input">
+			<label class="input w-full">
 				Path
 				<input type="text" class="grow" placeholder="src/app/" bind:value={paths[i]} />
 			</label>

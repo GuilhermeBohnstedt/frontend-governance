@@ -6,8 +6,6 @@
 	}
 
 	const { data }: Props = $props();
-
-  console.log(data)
 </script>
 
 <div class="overflow-x-auto">
@@ -17,6 +15,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Dependencies</th>
+        <th>Dev Dependencies</th>
       </tr>
     </thead>
     <tbody>
@@ -32,6 +31,17 @@
                 {/each}
               </ul>
             {:else}
+                <span>-</span>
+              {/if}
+          </td>
+          <td>
+            {#if pkg.package?.devDependencies}
+              <ul>
+                {#each Object.entries(pkg.package.devDependencies) as [dep, version]}
+                  <li>{dep}: {version}</li>
+                {/each}
+              </ul>
+            {:else}
               <span>-</span>
             {/if}
           </td>
@@ -43,6 +53,7 @@
         <th>#</th>
         <th>Name</th>
         <th>Dependencies</th>
+        <th>Dev Dependencies</th>
       </tr>
     </tfoot>
   </table>
